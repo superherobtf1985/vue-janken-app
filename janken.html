@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script src="vue.js"></script>
+
+    <div id="app">
+      <h1>{{ result }}</h1>
+
+      <!-- 敵の手 -->
+      <img :src="enemyHandImage"><br>
+
+      <!-- 自分の手 -->
+      <div class="hands">
+        <img class="hand" src="img/goo.jpeg" @click="fight('goo')">
+        <img class="hand" src="img/choki.jpeg" @click="fight('choki')">
+        <img class="hand" src="img/paa.jpeg" @click="fight('paa')">
+      </div>
+    </div>
+
+    <script>
+    new Vue({
+      el: '#app',
+      data: {
+        hand: ['goo', 'choki', 'paa'],
+        enemyHand: '',
+        enemyHandImage: '',
+        result: 'いざ勝負！',
+      },
+      methods: {
+        fight(myHand) {
+          // 敵の手をランダムに決める
+          // 0 1 2のいずれかの数字をランダムに生成する
+          var index = Math.floor(Math.random() * Math.floor(3));
+          this.enemyHand = this.hand[index];
+
+          if (this.enemyHand === 'goo') {
+            this.enemyHandImage = 'img/goo.jpeg';
+          } else if (this.enemyHand === 'choki') {
+            this.enemyHandImage = 'img/choki.jpeg';
+          } else if (this.enemyHand === 'paa') {
+            this.enemyHandImage = 'img/paa.jpeg';
+          }
+
+          // 自分の手と敵の手を比較する
+          if (myHand === this.enemyHand) {
+           this.result = 'あいこ';
+          }
+          if (myHand == 'goo' && this.enemyHand == 'paa') {
+            this.result = 'まけ...';
+          }
+          if (myHand == 'choki' && this.enemyHand == 'goo') {
+            this.result = 'まけ...';
+          }
+          if (myHand == 'paa' && this.enemyHand == 'choki') {
+            this.result = 'まけ...';
+          }
+          if (myHand == 'goo' && this.enemyHand == 'choki') {
+            this.result = 'かち!';
+          }
+          if (myHand == 'choki' && this.enemyHand == 'paa') {
+            this.result = 'かち!';
+          }
+          if (myHand == 'paa' && this.enemyHand == 'goo') {
+            this.result = 'かち!';
+          }
+        }
+      }
+    })
+    </script>
+  </body>
+</html>
