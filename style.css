@@ -33,6 +33,7 @@
 
 .enemyHand {
   position: relative;
+  margin-top: 30px;
 }
 
 .animation.scissors {
