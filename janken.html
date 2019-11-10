@@ -14,13 +14,22 @@
       <h1>{{ result }}</h1>
 
       <!-- 敵の手 -->
-      <img :src="enemyHandImage"><br>
+      <div class="enemyHand">
+        <div v-if="finish">
+          <img :src="enemyHandImage">
+        </div>
+        <div v-else>
+          <img class="animation" src="img/rock.jpeg">
+          <img class="animation scissors" src="img/scissors.jpeg">
+          <img class="animation paper" src="img/paper.jpeg">
+        </div>
+      </div>
 
       <!-- 自分の手 -->
-      <div class="hands">
-        <img class="hand" src="img/goo.jpeg" @click="fight('goo')">
-        <img class="hand" src="img/choki.jpeg" @click="fight('choki')">
-        <img class="hand" src="img/paa.jpeg" @click="fight('paa')">
+      <div class="myHands">
+        <img class="hand" src="img/rock.jpeg" @click="fight('rock')">
+        <img class="hand" src="img/scissors.jpeg" @click="fight('scissors')">
+        <img class="hand" src="img/paper.jpeg" @click="fight('paper')">
       </div>
     </div>
 
@@ -28,48 +37,51 @@
     new Vue({
       el: '#app',
       data: {
-        hand: ['goo', 'choki', 'paa'],
+        hands: ['rock', 'scissors', 'paper'],
         enemyHand: '',
         enemyHandImage: '',
         result: 'いざ勝負！',
+        finish: false,
       },
       methods: {
         fight(myHand) {
           // 敵の手をランダムに決める
           // 0 1 2のいずれかの数字をランダムに生成する
           var index = Math.floor(Math.random() * Math.floor(3));
-          this.enemyHand = this.hand[index];
+          this.enemyHand = this.hands[index];
 
-          if (this.enemyHand === 'goo') {
-            this.enemyHandImage = 'img/goo.jpeg';
-          } else if (this.enemyHand === 'choki') {
-            this.enemyHandImage = 'img/choki.jpeg';
-          } else if (this.enemyHand === 'paa') {
-            this.enemyHandImage = 'img/paa.jpeg';
+          if (this.enemyHand === 'rock') {
+            this.enemyHandImage = 'img/rock.jpeg';
+          } else if (this.enemyHand === 'scissors') {
+            this.enemyHandImage = 'img/scissors.jpeg';
+          } else if (this.enemyHand === 'paper') {
+            this.enemyHandImage = 'img/paper.jpeg';
           }
 
           // 自分の手と敵の手を比較する
           if (myHand === this.enemyHand) {
            this.result = 'あいこ';
           }
-          if (myHand == 'goo' && this.enemyHand == 'paa') {
+          if (myHand == 'rock' && this.enemyHand == 'paper') {
             this.result = 'まけ...';
           }
-          if (myHand == 'choki' && this.enemyHand == 'goo') {
+          if (myHand == 'scissors' && this.enemyHand == 'rock') {
             this.result = 'まけ...';
           }
-          if (myHand == 'paa' && this.enemyHand == 'choki') {
+          if (myHand == 'paper' && this.enemyHand == 'scissors') {
             this.result = 'まけ...';
           }
-          if (myHand == 'goo' && this.enemyHand == 'choki') {
+          if (myHand == 'rock' && this.enemyHand == 'scissors') {
             this.result = 'かち!';
           }
-          if (myHand == 'choki' && this.enemyHand == 'paa') {
+          if (myHand == 'scissors' && this.enemyHand == 'paper') {
             this.result = 'かち!';
           }
-          if (myHand == 'paa' && this.enemyHand == 'goo') {
+          if (myHand == 'paper' && this.enemyHand == 'rock') {
             this.result = 'かち!';
           }
+
+          this.finish = true;
         }
       }
     })
