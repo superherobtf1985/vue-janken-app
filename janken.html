@@ -15,7 +15,6 @@
 
       <button @click="retry">もういちど！</button>
 
-      <!-- 敵の手 -->
       <div class="enemyHand">
         <div v-if="finish">
           <img :src="enemyHandImage">
@@ -27,7 +26,6 @@
         </div>
       </div>
 
-      <!-- 自分の手 -->
       <div class="myHands">
         <img class="hand" src="img/rock.jpeg" @click="fight('rock')">
         <img class="hand" src="img/scissors.jpeg" @click="fight('scissors')">
@@ -47,9 +45,7 @@
       },
       methods: {
         fight(myHand) {
-          // 敵の手をランダムに決める
-          // 0 1 2のいずれかの数字をランダムに生成する
-          var index = Math.floor(Math.random() * Math.floor(3));
+          let index = Math.floor(Math.random() * Math.floor(3));
           this.enemyHand = this.hands[index];
 
           if (this.enemyHand === 'rock') {
